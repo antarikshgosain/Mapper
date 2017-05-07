@@ -161,7 +161,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this,"Nearby Restaurants", Toast.LENGTH_LONG).show();
             }
         });
-
         Button btnHospital = (Button) findViewById(R.id.btn_hospitals);
         btnHospital.setOnClickListener(new View.OnClickListener() {
             String Hospital = "hospital";
@@ -179,7 +178,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this,"Nearby Hospitals", Toast.LENGTH_LONG).show();
             }
         });
-
         Button btnSchool = (Button) findViewById(R.id.btn_schools);
         btnSchool.setOnClickListener(new View.OnClickListener() {
             String School = "school";

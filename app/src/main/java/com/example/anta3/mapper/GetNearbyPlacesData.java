@@ -71,9 +71,11 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             double lng = Double.parseDouble(googlePlace.get("lng"));
             final String placeName = googlePlace.get("place_name");
             final String vicinity = googlePlace.get("vicinity");
+            final String ref = googlePlace.get("reference");
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
-            markerOptions.title(placeName + " : " + vicinity);
+            markerOptions.title(placeName);
+            markerOptions.snippet(vicinity + " : " + ref);
             mMap.addMarker(markerOptions);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
             //move map camera
@@ -84,12 +86,14 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
                 public boolean onMarkerClick(final Marker marker) {
                     //Log.i("logger",marker.getTitle());
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mapsActivity);
-                    String fullAddress = marker.getTitle();
-                    String[] fullAddressArray = fullAddress.split(" : ");
-                    String title = fullAddressArray[0] ;
+                    final String fullAddress = marker.getTitle();
+                    String[] fullAddressArray = markerOptions.getSnippet().split(" : ");
+                    final String title = fullAddress ;
+                    final String address = fullAddressArray[0];
+
                     Log.i("data",title);
-                    alertDialogBuilder.setTitle("Name : "+title.replace(" : ",""))
-                            .setMessage("Address : "+vicinity
+                    alertDialogBuilder.setTitle("Name : "+marker.getTitle())
+                            .setMessage("Address : "+marker.getSnippet().substring(0,markerOptions.getSnippet().lastIndexOf(" : "))
                             +"\nLatitude : "+marker.getPosition().latitude
                             +"\nLongitude : "+marker.getPosition().longitude)
                             .setPositiveButton("Ok",null)
@@ -97,11 +101,13 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(mapsActivity.getApplicationContext(), PlaceDetails.class);
-                                    intent.putExtra("strName", marker.getTitle());
-                                    intent.putExtra("strLatitude", marker.getPosition().latitude);
-                                    intent.putExtra("strLongitude", marker.getPosition().longitude);
+                                    intent.putExtra("strName", title);
+                                    intent.putExtra("strAddress",address);
+                                    intent.putExtra("strLat", marker.getPosition().latitude);
+                                    intent.putExtra("strLng", marker.getPosition().longitude);
+                                    intent.putExtra("strRef",marker.getSnippet().substring(marker.getSnippet().indexOf(" : ")).replace(" : ",""));
                                     mapsActivity.startActivity(intent);
-                                    //Toast.makeText(mapsActivity.getApplicationContext(),"Loading...",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mapsActivity.getApplicationContext(),"Fetching Data for "+title,Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();
