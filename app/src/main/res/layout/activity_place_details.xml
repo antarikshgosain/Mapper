@@ -17,6 +17,7 @@
         android:text="Back"
         android:id="@+id/btn_back">
     </Button>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +49,18 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="Address"/>
-
+    <TextView
+        android:id="@+id/placeCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="City"/>
+    <TextView
+        android:id="@+id/placeStateCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="State/Country"/>
     <TextView
         android:id="@+id/placeLat"
         android:layout_width="match_parent"
@@ -64,11 +76,11 @@
         android:text="Longitude"/>
 
     <TextView
-        android:id="@+id/placeJson"
+        android:id="@+id/placePhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="JSON"/>
+        android:text="Phone"/>
 
 
 </LinearLayout>

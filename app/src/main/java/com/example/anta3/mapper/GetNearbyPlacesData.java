@@ -75,7 +75,7 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
             markerOptions.title(placeName);
-            markerOptions.snippet(vicinity + " : " + ref);
+            markerOptions.snippet(vicinity + " ::: " + ref);
             mMap.addMarker(markerOptions);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
             //move map camera
@@ -92,8 +92,8 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
                     final String address = fullAddressArray[0];
 
                     Log.i("data",title);
-                    alertDialogBuilder.setTitle("Name : "+marker.getTitle())
-                            .setMessage("Address : "+marker.getSnippet().substring(0,markerOptions.getSnippet().lastIndexOf(" : "))
+                    alertDialogBuilder.setTitle("Name : "+marker.getTitle().replace(":::",""))
+                            .setMessage("Address : "+marker.getSnippet().substring(0,markerOptions.getSnippet().lastIndexOf(" ::: ")).replaceAll(":::","")
                             +"\nLatitude : "+marker.getPosition().latitude
                             +"\nLongitude : "+marker.getPosition().longitude)
                             .setPositiveButton("Ok",null)
@@ -105,7 +105,7 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
                                     intent.putExtra("strAddress",address);
                                     intent.putExtra("strLat", marker.getPosition().latitude);
                                     intent.putExtra("strLng", marker.getPosition().longitude);
-                                    intent.putExtra("strRef",marker.getSnippet().substring(marker.getSnippet().indexOf(" : ")).replace(" : ",""));
+                                    intent.putExtra("strRef",marker.getSnippet().substring(marker.getSnippet().indexOf(" ::: ")).replace(" ::: ",""));
                                     mapsActivity.startActivity(intent);
                                     Toast.makeText(mapsActivity.getApplicationContext(),"Fetching Data for "+title,Toast.LENGTH_SHORT).show();
                                 }
