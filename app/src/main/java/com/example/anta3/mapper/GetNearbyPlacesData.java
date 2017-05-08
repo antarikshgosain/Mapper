@@ -30,6 +30,7 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
     String googlePlacesData;
     GoogleMap mMap;
     String url;
+    String markerType ;
     MapsActivity mapsActivity;
 
     public GetNearbyPlacesData(MapsActivity mapsActivity) {
@@ -42,6 +43,7 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             Log.d("GetNearbyPlacesData", "doInBackground entered");
             mMap = (GoogleMap) params[0];
             url = (String) params[1];
+            markerType = (String) params[2];
             DownloadUrl downloadUrl = new DownloadUrl();
             googlePlacesData = downloadUrl.readUrl(url);
             Log.d("GooglePlacesReadTask", "doInBackground Exit");
@@ -76,14 +78,25 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             markerOptions.position(latLng);
             markerOptions.title(placeName);
             markerOptions.snippet(vicinity + " ::: " + ref);
-            mMap.addMarker(markerOptions);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+            if (markerType=="restaurants") {
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.food32));
+            }else if(markerType=="hospitals"){
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital32));
+            }else if (markerType=="schools"){
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.school32));
+            }else{
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.game32));
+            }
+
+            mMap.addMarker(markerOptions);
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
                 @Override
-                public boolean onMarkerClick(final Marker marker) {
+                public void onInfoWindowClick(final Marker marker) {
                     //Log.i("logger",marker.getTitle());
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mapsActivity);
                     final String fullAddress = marker.getTitle();
@@ -92,30 +105,16 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
                     final String address = fullAddressArray[0];
 
                     Log.i("data",title);
-                    alertDialogBuilder.setTitle("Name : "+marker.getTitle().replace(":::",""))
-                            .setMessage("Address : "+marker.getSnippet().substring(0,markerOptions.getSnippet().lastIndexOf(" ::: ")).replaceAll(":::","")
-                            +"\nLatitude : "+marker.getPosition().latitude
-                            +"\nLongitude : "+marker.getPosition().longitude)
-                            .setPositiveButton("Ok",null)
-                            .setNegativeButton("Details", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(mapsActivity.getApplicationContext(), PlaceDetails.class);
-                                    intent.putExtra("strName", title);
-                                    intent.putExtra("strAddress",address);
-                                    intent.putExtra("strLat", marker.getPosition().latitude);
-                                    intent.putExtra("strLng", marker.getPosition().longitude);
-                                    intent.putExtra("strRef",marker.getSnippet().substring(marker.getSnippet().indexOf(" ::: ")).replace(" ::: ",""));
-                                    mapsActivity.startActivity(intent);
-                                    Toast.makeText(mapsActivity.getApplicationContext(),"Fetching Data for "+title,Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .show();
-                    return false;
+                    Intent intent = new Intent(mapsActivity.getApplicationContext(), PlaceDetails.class);
+                    intent.putExtra("strName", title);
+                    intent.putExtra("strAddress",address);
+                    intent.putExtra("strLat", marker.getPosition().latitude);
+                    intent.putExtra("strLng", marker.getPosition().longitude);
+                    intent.putExtra("strRef",marker.getSnippet().substring(marker.getSnippet().indexOf(" ::: ")).replace(" ::: ",""));
+                    mapsActivity.startActivity(intent);
+                    Toast.makeText(mapsActivity.getApplicationContext(),"Fetching Data for "+title,Toast.LENGTH_SHORT).show();
                 }
             });
-//            mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
-
         }
     }
 

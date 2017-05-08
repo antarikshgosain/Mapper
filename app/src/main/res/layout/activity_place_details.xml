@@ -11,14 +11,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.anta3.mapper.PlaceDetails">
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Back"
-        android:id="@+id/btn_back">
-    </Button>
 
     <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:src="@drawable/back_arrow_white"
+            android:id="@+id/imgBack"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:id="@+id/txtBack"
+            android:text="Back"
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:textSize="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Details"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:id="@+id/txtWebsite"
+            android:text="Website"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:id="@+id/imgWebsite"
+            android:src="@drawable/next_arrow_white" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,60 +81,74 @@
             android:layout_height="100dp" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/placeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:gravity="center"
+                android:textSize="28sp"
                 android:text="Name"/>
-            <RatingBar
-                android:id="@+id/placeRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"/>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RatingBar
+                    android:id="@+id/placeRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"/>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:id="@+id/placeAddress"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="Address"/>
-    <TextView
-        android:id="@+id/placeCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="City"/>
-    <TextView
-        android:id="@+id/placeStateCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="State/Country"/>
-    <TextView
-        android:id="@+id/placeLat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Latitude"/>
+        android:layout_width="match_parent">
 
-    <TextView
-        android:id="@+id/placeLng"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Longitude"/>
+        <TextView
+            android:id="@+id/placeAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Address"/>
+        <TextView
+            android:id="@+id/placeCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="City"/>
+        <TextView
+            android:id="@+id/placeStateCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="State/Country"/>
+        <TextView
+            android:id="@+id/placeLat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Latitude"/>
 
-    <TextView
-        android:id="@+id/placePhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Phone"/>
+        <TextView
+            android:id="@+id/placeLng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Longitude"/>
+
+        <TextView
+            android:id="@+id/placePhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textSize="20sp" />
 
 
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

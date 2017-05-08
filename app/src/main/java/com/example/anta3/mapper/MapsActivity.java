@@ -152,9 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onClick", "Button is Clicked");
                 mMap.clear();
                 String url = getUrl(latitude, longitude, Restaurant);
-                Object[] DataTransfer = new Object[2];
+                Object[] DataTransfer = new Object[3];
                 DataTransfer[0] = mMap;
                 DataTransfer[1] = url;
+                DataTransfer[2] = "restaurants";
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData(MapsActivity.this);
                 getNearbyPlacesData.execute(DataTransfer);
@@ -169,9 +170,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onClick", "Button is Clicked");
                 mMap.clear();
                 String url = getUrl(latitude, longitude, Hospital);
-                Object[] DataTransfer = new Object[2];
+                Object[] DataTransfer = new Object[3];
                 DataTransfer[0] = mMap;
                 DataTransfer[1] = url;
+                DataTransfer[2] = "hospitals";
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData(MapsActivity.this);
                 getNearbyPlacesData.execute(DataTransfer);
@@ -189,9 +191,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mCurrLocationMarker.remove();
                 }
                 String url = getUrl(latitude, longitude, School);
-                Object[] DataTransfer = new Object[2];
+                Object[] DataTransfer = new Object[3];
                 DataTransfer[0] = mMap;
                 DataTransfer[1] = url;
+                DataTransfer[2] = "schools";
                 Log.d("onClick", url);
                 GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData(MapsActivity.this);
                 getNearbyPlacesData.execute(DataTransfer);

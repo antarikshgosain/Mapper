@@ -1,6 +1,10 @@
 package com.example.anta3.mapper;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,8 +27,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class PlaceDetails extends AppCompatActivity {
-    ImageView placeImg;
+public class PlaceDetails extends AppCompatActivity implements View.OnClickListener {
+    String website ;
+    ImageView imgPlace;
     TextView txtName;
     TextView txtAddress;
     RatingBar rbRating;
@@ -32,8 +37,13 @@ public class PlaceDetails extends AppCompatActivity {
     TextView txtLongitude;
     TextView txtCity ;
     TextView txtStateCountry ;
-    Button btnBack;
+
     TextView txtPhone;
+
+    ImageView imgBack ;
+    ImageView imgWebsite ;
+    TextView txtBack ;
+    TextView txtWebsite ;
 
     String url;
     String apiKey = "AIzaSyAayHbuSoq5PqhLcUS8j2O6P8iM604gvFE";
@@ -43,17 +53,26 @@ public class PlaceDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_details);
 
-        placeImg = (ImageView) findViewById(R.id.placeImg);
+        imgPlace = (ImageView) findViewById(R.id.placeImg);
         txtName = (TextView) findViewById(R.id.placeName);
         txtAddress = (TextView) findViewById(R.id.placeAddress);
         rbRating = (RatingBar) findViewById(R.id.placeRating);
         txtLatitude = (TextView) findViewById(R.id.placeLat);
         txtLongitude = (TextView) findViewById(R.id.placeLng);
         txtCity = (TextView)findViewById(R.id.placeCity);
-        btnBack = (Button) findViewById(R.id.btn_back);
-        txtPhone = (TextView) findViewById(R.id.placeJson);
+        txtPhone = (TextView) findViewById(R.id.placePhone);
         txtStateCountry = (TextView)findViewById(R.id.placeStateCountry);
+
         rbRating.setStepSize(0.1f);
+        imgBack = (ImageView)findViewById(R.id.imgBack);
+        imgWebsite = (ImageView)findViewById(R.id.imgWebsite);
+        txtBack = (TextView) findViewById(R.id.txtBack);
+        txtWebsite = (TextView)findViewById(R.id.txtWebsite);
+        imgBack.setOnClickListener(this);
+        imgWebsite.setOnClickListener(this);
+        txtBack.setOnClickListener(this);
+        txtWebsite.setOnClickListener(this);
+
         String name = getIntent().getExtras().getString("strName");
         String address = getIntent().getExtras().getString("strAddress");
         Double lat = getIntent().getExtras().getDouble("strLat");
@@ -69,27 +88,37 @@ public class PlaceDetails extends AppCompatActivity {
         txtLongitude.setText("Longitude : " + lng.toString());
         //txtLongitude.append("\n\n"+url);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-//        btnHit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    String result = new JsonTask().execute(url).get();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                }
-//                //txtPhone.setText(result.toString());
-//            }
-//        });
 
         new JsonTask().execute(url);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.txtBack:{
+                finish();
+                break;
+            }
+            case R.id.imgBack:{
+                finish();
+                break;
+            }
+            case R.id.imgWebsite:{
+                final String newWebsite = website ;
+                Intent intent = new Intent(PlaceDetails.this,WebViewDemo.class);
+                intent.putExtra("url",newWebsite);
+                startActivity(intent);
+                break;
+            }
+            case R.id.txtWebsite:{
+                final String newWebsite = website ;
+                Intent intent = new Intent(PlaceDetails.this,WebViewDemo.class);
+                intent.putExtra("url",newWebsite);
+                startActivity(intent);
+                break;
+            }
+        }
     }
 
     class JsonTask extends AsyncTask<String, String, String> {
@@ -157,8 +186,10 @@ public class PlaceDetails extends AppCompatActivity {
             String cityName = "" ;
             String stateName = "" ;
             String countryName = "" ;
-            String rating = null;
-            String phone = "";
+            String rating = null ;
+            String phone = "" ;
+            String iconUrl = "" ;
+            String vicinity = "" ;
             super.onPostExecute(result);
             if (pd.isShowing()) {
                 pd.dismiss();
@@ -174,7 +205,9 @@ public class PlaceDetails extends AppCompatActivity {
                 countryName = addressComponentArray.getJSONObject(2).getString("long_name");
                 rating = parentJson.getJSONObject("result").getString("rating");
                 phone = parentJson.getJSONObject("result").getString("international_phone_number");
-
+                iconUrl = parentJson.getJSONObject("result").getString("icon");
+                vicinity = parentJson.getJSONObject("result").getString("vicinity");
+                website = parentJson.getJSONObject("result").getString("website");
                 Log.i("antalog",addressComponentArray.toString());
                 Log.i("antalog",cityName);
 
@@ -187,6 +220,35 @@ public class PlaceDetails extends AppCompatActivity {
             rating = (rating!=null) ? rating : "0";
             rbRating.setRating(Float.parseFloat(rating));
             txtPhone.setText("Phone Number : "+phone);
+            txtAddress.setText("Address : "+vicinity);
+
+            new DownloadImageTask((ImageView) findViewById(R.id.placeImg))
+                    .execute(iconUrl);
+
+        }
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
         }
     }
 
