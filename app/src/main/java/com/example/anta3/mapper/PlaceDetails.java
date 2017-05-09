@@ -5,17 +5,22 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +37,7 @@ import java.net.URL;
 
 public class PlaceDetails extends AppCompatActivity implements View.OnClickListener {
     String website ;
+    LinearLayout parentLayout ;
     ImageView imgPlace;
     TextView txtName;
     TextView txtAddress;
@@ -42,7 +48,8 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
     TextView txtStateCountry ;
 
     TextView txtPhone;
-
+    JSONArray types;
+    String strTypes;
     ImageView imgBack ;
     ImageView imgWebsite ;
     TextView txtBack ;
@@ -60,11 +67,19 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
         txtName = (TextView) findViewById(R.id.placeName);
         txtAddress = (TextView) findViewById(R.id.placeAddress);
         rbRating = (RatingBar) findViewById(R.id.placeRating);
+        rbRating.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        Drawable drawable = rbRating.getProgressDrawable();
+        drawable.setColorFilter(Color.parseColor("#FFD700"), PorterDuff.Mode.SRC_ATOP);
         txtLatitude = (TextView) findViewById(R.id.placeLat);
         txtLongitude = (TextView) findViewById(R.id.placeLng);
         txtCity = (TextView)findViewById(R.id.placeCity);
         txtPhone = (TextView) findViewById(R.id.placePhone);
         txtStateCountry = (TextView)findViewById(R.id.placeStateCountry);
+        parentLayout = (LinearLayout)findViewById(R.id.parentLayout);
 
         rbRating.setStepSize(0.1f);
         imgBack = (ImageView)findViewById(R.id.imgBack);
@@ -82,8 +97,11 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
         Double lng = getIntent().getExtras().getDouble("strLng");
         String ref = getIntent().getExtras().getString("strRef");
 
+
         url = "https://maps.googleapis.com/maps/api/place/details/json?reference=" + ref + "&key=" + apiKey;
         Log.d("hitUrl", url);
+
+
         txtName.setText(name);
         txtName.setTypeface(null, Typeface.BOLD);
         txtName.setTextColor(Color.parseColor("#000000"));
@@ -218,6 +236,7 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
                 phone = parentJson.getJSONObject("result").getString("international_phone_number");
                 iconUrl = parentJson.getJSONObject("result").getString("icon");
                 vicinity = parentJson.getJSONObject("result").getString("vicinity");
+                types = parentJson.getJSONObject("result").getJSONArray("types");
                 website = parentJson.getJSONObject("result").getString("website");
                 Log.i("antalog",addressComponentArray.toString());
                 Log.i("antalog",cityName);
@@ -226,6 +245,25 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            if(types!=null){
+                strTypes = types.toString();
+                Log.i("types",strTypes);
+
+                if(strTypes.contains("hospital")){
+                    parentLayout.setBackgroundResource(R.drawable.back_hospital);
+                }else if(strTypes.contains("school")){
+                    parentLayout.setBackgroundResource(R.drawable.back_school);
+                }else if(strTypes.contains("restaurant")){
+                    parentLayout.setBackgroundResource(R.drawable.back_rest);
+                }else{
+                    parentLayout.setBackgroundResource(R.drawable.back);
+                }
+            }else {
+                parentLayout.setBackgroundResource(R.drawable.back);
+            }
+
+
             txtCity.setText("City : "+cityName);
             txtCity.setTextColor(Color.parseColor("#000000"));
 

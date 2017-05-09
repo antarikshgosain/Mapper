@@ -4,89 +4,60 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/showOptionsLayout"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show Options"
-            android:id="@+id/showOptionsButton"/>
-    </LinearLayout>
-    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
-        xmlns:rfal="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/layout_fab"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        rfal:rfal_frame_color="#ffffff"
-        rfal:rfal_frame_alpha="0.7">
 
-        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
-            xmlns:rfab="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/btn_rfab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            rfab:rfab_size="normal"
-            rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
-            rfab:rfab_color_normal="#37474f"
-            rfab:rfab_color_pressed="#263238"
-            rfab:rfab_shadow_radius="7dp"
-            rfab:rfab_shadow_color="#999999"
-            rfab:rfab_shadow_dx="0dp"
-            rfab:rfab_shadow_dy="5dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/floatingActionButton"
-            android:layout_toEndOf="@+id/floatingActionButton" />
-    </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
-    <LinearLayout
-        android:id="@+id/optionsLayout"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <Button
+        <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hide Options"
-            android:id="@+id/hideOptionsButton"/>
+            android:layout_height="match_parent"
+            tools:context="com.example.anta3.mapper.MapsActivity" />
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_width="match_parent">
-            <Button
-                android:layout_weight="1"
-                android:text="Restaurants"
-                android:id="@+id/btn_restaurants"
-                android:textSize="12sp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_weight="1"
-                android:text="Hospitals"
-                android:textSize="12sp"
-                android:id="@+id/btn_hospitals"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <Button
-                android:layout_weight="1"
-                android:text="Schools"
-                android:id="@+id/btn_schools"
-                android:textSize="12sp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btn_fab"
+                android:padding="2dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="top|left"
+                android:visibility="visible"
+                android:src="@drawable/arrow512" />
+
+            <LinearLayout
+                android:background="@drawable/rounded_rectangle"
+                android:id="@+id/optionsLayout"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                android:orientation="horizontal"
+                android:gravity="left"
+                android:layout_height="match_parent"
+                android:layout_width="180dp">
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/btn_restaurants"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/opt_food" />
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/btn_hospitals"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/opt_hospital" />
+                <ImageView
+                    android:padding="5dp"
+                    android:id="@+id/btn_schools"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/opt_school" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.anta3.mapper.MapsActivity" />
-
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

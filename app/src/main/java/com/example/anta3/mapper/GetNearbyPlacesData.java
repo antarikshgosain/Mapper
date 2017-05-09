@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 
 public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
+
 
     String googlePlacesData;
     GoogleMap mMap;
@@ -80,11 +82,11 @@ public class GetNearbyPlacesData extends AsyncTask<Object, String, String>{
             markerOptions.snippet(vicinity + " ::: " + ref);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
             if (markerType=="restaurants") {
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.food32));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.food40));
             }else if(markerType=="hospitals"){
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital32));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.doctor40));
             }else if (markerType=="schools"){
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.school32));
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.school40));
             }else{
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.game32));
             }

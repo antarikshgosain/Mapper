@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:background="@drawable/city"
+<LinearLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout
+    <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -72,108 +71,168 @@
 
 
     <LinearLayout
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/placeImg"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+        android:background="@drawable/back"
+        android:id="@+id/parentLayout"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
         <LinearLayout
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-
-                android:id="@+id/placeName"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/placeImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="28sp"
-                android:text="Name"/>
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RatingBar
-                    android:id="@+id/placeRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"/>
+                android:orientation="vertical">
+                <TextView
 
+                    android:id="@+id/placeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="28sp"
+                    android:text="Name"/>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RatingBar
+                        android:id="@+id/placeRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"/>
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        <LinearLayout
 
-        <TextView
-            android:id="@+id/placeAddress"
-            android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Address"/>
-        <View
-            android:layout_height="5dp"
             android:layout_width="match_parent">
-        </View>
 
-        <TextView
-            android:id="@+id/placeCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="City"/>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+                <TextView
+                    android:id="@+id/placeAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Address"/>
+            </android.support.v7.widget.CardView>
 
-        <View
-            android:layout_height="5dp"
-            android:layout_width="match_parent">
-        </View>
-        <TextView
-            android:id="@+id/placeStateCountry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="State/Country"/>
+            <View
+                android:layout_height="3dp"
+                android:layout_width="match_parent">
+            </View>
 
-        <View
-            android:layout_height="5dp"
-            android:layout_width="match_parent">
-        </View>
-        <TextView
-            android:id="@+id/placeLat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Latitude"/>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+            <TextView
+                android:id="@+id/placeCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="City"/>
+            </android.support.v7.widget.CardView>
 
-        <View
-            android:layout_height="5dp"
-            android:layout_width="match_parent">
-        </View>
-        <TextView
-            android:id="@+id/placeLng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Longitude"/>
+            <View
+                android:layout_height="3dp"
+                android:layout_width="match_parent">
+            </View>
 
-        <View
-            android:layout_height="5dp"
-            android:layout_width="match_parent">
-        </View>
-        <TextView
-            android:id="@+id/placePhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            android:textSize="20sp" />
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+            <TextView
+                android:id="@+id/placeStateCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="State/Country"/>
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_height="3dp"
+                android:layout_width="match_parent">
+            </View>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+            <TextView
+                android:id="@+id/placeLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Latitude"/>
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_height="3dp"
+                android:layout_width="match_parent">
+            </View>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+            <TextView
+                android:id="@+id/placeLng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Longitude"/>
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_height="3dp"
+                android:layout_width="match_parent">
+            </View>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:cardBackgroundColor="#A6FFFFFF"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp">
+            <TextView
+                android:id="@+id/placePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textSize="20sp" />
+            </android.support.v7.widget.CardView>
 
 
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-</ScrollView>
+</LinearLayout>
