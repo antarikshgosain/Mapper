@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -82,10 +85,18 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
         url = "https://maps.googleapis.com/maps/api/place/details/json?reference=" + ref + "&key=" + apiKey;
         Log.d("hitUrl", url);
         txtName.setText(name);
+        txtName.setTypeface(null, Typeface.BOLD);
+        txtName.setTextColor(Color.parseColor("#000000"));
         String addressArray[] = address.split(" ::: ");
+
         txtAddress.setText("Address : " + addressArray[0]);
+        txtAddress.setTextColor(Color.parseColor("#000000"));
+
         txtLatitude.setText("Latitude   : " + lat.toString());
+        txtLatitude.setTextColor(Color.parseColor("#000000"));
+
         txtLongitude.setText("Longitude : " + lng.toString());
+        txtLongitude.setTextColor(Color.parseColor("#000000"));
         //txtLongitude.append("\n\n"+url);
 
 
@@ -216,11 +227,22 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
             txtCity.setText("City : "+cityName);
+            txtCity.setTextColor(Color.parseColor("#000000"));
+
             txtStateCountry.setText("State/Country : "+stateName+"/"+countryName);
+            txtStateCountry.setTextColor(Color.parseColor("#000000"));
+
             rating = (rating!=null) ? rating : "0";
             rbRating.setRating(Float.parseFloat(rating));
+
             txtPhone.setText("Phone Number : "+phone);
+            txtPhone.setTextColor(Color.parseColor("#000000"));
+
             txtAddress.setText("Address : "+vicinity);
+            txtAddress.setTextColor(Color.parseColor("#000000"));
+
+            //TODO ListView
+            ListView myList = new ListView(getApplicationContext());
 
             new DownloadImageTask((ImageView) findViewById(R.id.placeImg))
                     .execute(iconUrl);

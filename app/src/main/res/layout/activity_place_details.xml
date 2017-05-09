@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:background="@drawable/city"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -84,6 +85,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+
                 android:id="@+id/placeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,18 +117,33 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="Address"/>
+        <View
+            android:layout_height="5dp"
+            android:layout_width="match_parent">
+        </View>
+
         <TextView
             android:id="@+id/placeCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="City"/>
+
+        <View
+            android:layout_height="5dp"
+            android:layout_width="match_parent">
+        </View>
         <TextView
             android:id="@+id/placeStateCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="State/Country"/>
+
+        <View
+            android:layout_height="5dp"
+            android:layout_width="match_parent">
+        </View>
         <TextView
             android:id="@+id/placeLat"
             android:layout_width="match_parent"
@@ -134,6 +151,10 @@
             android:textSize="20sp"
             android:text="Latitude"/>
 
+        <View
+            android:layout_height="5dp"
+            android:layout_width="match_parent">
+        </View>
         <TextView
             android:id="@+id/placeLng"
             android:layout_width="match_parent"
@@ -141,6 +162,10 @@
             android:textSize="20sp"
             android:text="Longitude"/>
 
+        <View
+            android:layout_height="5dp"
+            android:layout_width="match_parent">
+        </View>
         <TextView
             android:id="@+id/placePhone"
             android:layout_width="match_parent"

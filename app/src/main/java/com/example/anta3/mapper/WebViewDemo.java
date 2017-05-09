@@ -34,7 +34,7 @@ public class WebViewDemo extends AppCompatActivity implements View.OnClickListen
 
         mWebView = (WebView)findViewById(R.id.web_view_1);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        Log.i("antalog",url);
+
         if (url==""||url==null){
             Toast.makeText(getApplicationContext(),"URL not found",Toast.LENGTH_SHORT).show();
             finish();

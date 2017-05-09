@@ -2,10 +2,12 @@ package com.example.anta3.mapper;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -30,12 +32,27 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener ,
-        View.OnClickListener {
+        View.OnClickListener ,
+        RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener{
+
+
+    private RapidFloatingActionLayout rfaLayout;
+    private RapidFloatingActionButton rfaBtn;
+    private RapidFloatingActionHelper rfabHelper;
+    private RapidFloatingActionContentLabelList rfaContent ;
 
     double latitude;
     double longitude;
@@ -43,6 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     LinearLayout layout_showOptionsLayout ;
     LinearLayout layout_optionsLayout ;
+
 
     Button btnShowOptionsButton ;
     Button btnHideOptionsButton ;
@@ -61,6 +79,59 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        rfaContent = new RapidFloatingActionContentLabelList(MapsActivity.this);
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(MapsActivity.this);
+        rfaContent.setOnClickListener(MapsActivity.this);
+        //rfaBtn = ( RapidFloatingActionButton) findViewById(R.id.fbtn);
+        rfaBtn = (RapidFloatingActionButton) findViewById(R.id.btn_rfab);
+        rfaBtn = (RapidFloatingActionButton) findViewById(R.id.btn_rfab);
+        rfaBtn.setOnClickListener(this);
+        rfaLayout = (RapidFloatingActionLayout) findViewById(R.id.layout_fab);
+        //rfaContent.setOnRapidFloatingActionContentListener(this);
+        List<RFACLabelItem> items = new ArrayList<>();
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel("Github: wangjiegulu")
+                .setResId(R.drawable.food32)
+                .setIconNormalColor(0xffd84315)
+                .setIconPressedColor(0xffbf360c)
+                .setWrapper(0)
+        );
+//        items.add(new RFACLabelItem<Integer>()
+//                .setLabel("tiantian.china.2@gmail.com")
+//                .setResId(R.mipmap.ico_test_c)
+//                .setIconNormalColor(0xff4e342e)
+//                .setIconPressedColor(0xff3e2723)
+//                .setLabelColor(Color.WHITE)
+//                .setLabelSizeSp(14)
+//                .setLabelBackgroundDrawable(ABShape.generateCornerShapeDrawable(0xaa000000, ABTextUtil.dip2px(context, 4)))
+//                .setWrapper(1)
+//        );
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel("WangJie")
+                .setResId(R.drawable.food32)
+                .setIconNormalColor(0xff056f00)
+                .setIconPressedColor(0xff0d5302)
+                .setLabelColor(0xff056f00)
+                .setWrapper(2)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel("Compose")
+                .setResId(R.drawable.food32)
+                .setIconNormalColor(0xff283593)
+                .setIconPressedColor(0xff1a237e)
+                .setLabelColor(0xff283593)
+                .setWrapper(3)
+        );
+        rfaContent
+                .setItems(items)
+                .setIconShadowRadius(5)
+                .setIconShadowColor(0xff888888);
+
+        rfabHelper = new RapidFloatingActionHelper
+                (getApplicationContext(),rfaLayout,
+                        rfaBtn,rfaContent).build();
+
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -361,7 +432,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 layout_optionsLayout.setVisibility(View.GONE);
                 break;
             }
+            case R.id.btn_rfab:{
+
+                Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_SHORT).show();
+                break;
+            }
 
         }
+    }
+
+    @Override
+    public void onRFACItemLabelClick(int position, RFACLabelItem item) {
+        Toast.makeText(getApplicationContext(), "clicked label: " + position, Toast.LENGTH_SHORT).show();
+        rfabHelper.toggleContent();
+    }
+
+    @Override
+    public void onRFACItemIconClick(int position, RFACLabelItem item) {
+        Toast.makeText(getApplicationContext(), "clicked icon: " + position, Toast.LENGTH_SHORT).show();
+        rfabHelper.toggleContent();
     }
 }
