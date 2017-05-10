@@ -69,170 +69,201 @@
             android:src="@drawable/next_arrow_white" />
     </LinearLayout>
 
-
-    <LinearLayout
-        android:background="@drawable/back"
-        android:id="@+id/parentLayout"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:id="@+id/parentLayout"
+        android:background="@drawable/back">
+
         <LinearLayout
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/placeImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-
-                    android:id="@+id/placeName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="28sp"
-                    android:text="Name"/>
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RatingBar
-                        android:id="@+id/placeRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-
             android:orientation="vertical"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             android:layout_width="match_parent">
 
             <android.support.v7.widget.CardView
+                android:layout_margin="3dp"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 card_view:cardBackgroundColor="#A6FFFFFF"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp">
-                <TextView
-                    android:id="@+id/placeAddress"
+                <LinearLayout
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Address"/>
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/placeImg"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+
+                            android:id="@+id/placeName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="28sp"
+                            android:text="Name"/>
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <RatingBar
+                                android:id="@+id/placeRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <View
-                android:layout_height="3dp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent">
-            </View>
 
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:cardBackgroundColor="#A6FFFFFF"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
-            <TextView
-                android:id="@+id/placeCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="City"/>
-            </android.support.v7.widget.CardView>
-
-            <View
-                android:layout_height="3dp"
-                android:layout_width="match_parent">
-            </View>
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:cardBackgroundColor="#A6FFFFFF"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
-            <TextView
-                android:id="@+id/placeStateCountry"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="State/Country"/>
-            </android.support.v7.widget.CardView>
-
-            <View
-                android:layout_height="3dp"
-                android:layout_width="match_parent">
-            </View>
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:cardBackgroundColor="#A6FFFFFF"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
-            <TextView
-                android:id="@+id/placeLat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Latitude"/>
-            </android.support.v7.widget.CardView>
-
-            <View
-                android:layout_height="3dp"
-                android:layout_width="match_parent">
-            </View>
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:cardBackgroundColor="#A6FFFFFF"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
-            <TextView
-                android:id="@+id/placeLng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Longitude"/>
-            </android.support.v7.widget.CardView>
-
-            <View
-                android:layout_height="3dp"
-                android:layout_width="match_parent">
-            </View>
-
-            <android.support.v7.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:cardBackgroundColor="#A6FFFFFF"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
-            <TextView
-                android:id="@+id/placePhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Phone"
-                android:textSize="20sp" />
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:id="@+id/placeAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="@string/strAddress"/>
+                </android.support.v7.widget.CardView>
 
 
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:id="@+id/placeCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="@string/strCity"/>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:id="@+id/placeStateCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="@string/strProvince"/>
+                </android.support.v7.widget.CardView>
+
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:id="@+id/placeLat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="@string/strLatitude"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:id="@+id/placeLng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="@string/strLongitude"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/placePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/strPhone"
+                            android:textSize="20sp" />
+                        <ImageView
+                            android:id="@+id/btn_call"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/phone_logo_small"
+                            android:background="@drawable/phone_logo"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:layout_margin="3dp"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    card_view:cardBackgroundColor="#A6FFFFFF"
+                    card_view:cardElevation="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="4dp">
+                    <TextView
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:id="@+id/placeGetDirections"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strGetDirections"
+                        android:textSize="26sp" />
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
 </LinearLayout>

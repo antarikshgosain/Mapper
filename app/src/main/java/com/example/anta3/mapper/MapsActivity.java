@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Check if Google Play Services Available or not
         if (!CheckGooglePlayServices()) {
-            Log.d("onCreate", "Finishing test case since Google Play Services are not available");
+            Toast.makeText(getApplicationContext(),"Please Install Google Play Services",Toast.LENGTH_SHORT).show();
             finish();
         }
         else {

@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +17,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +33,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 public class PlaceDetails extends AppCompatActivity implements View.OnClickListener {
+    ImageView btnCall ;
     String website ;
-    LinearLayout parentLayout ;
+    String cityName = "" ;
+    String stateName = "" ;
+    String countryName = "" ;
+    String rating = null ;
+    String phone = "" ;
+    String iconUrl = "" ;
+    String vicinity = "" ;
+
+    ScrollView parentLayout ;
     ImageView imgPlace;
     TextView txtName;
     TextView txtAddress;
@@ -45,18 +54,26 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
     TextView txtLatitude;
     TextView txtLongitude;
     TextView txtCity ;
-    TextView txtStateCountry ;
+    TextView txtProvince;
 
+    TextView txtGetDirections;
     TextView txtPhone;
     JSONArray types;
-    String strTypes;
     ImageView imgBack ;
     ImageView imgWebsite ;
     TextView txtBack ;
     TextView txtWebsite ;
 
     String url;
+    String strTypes;
+    String getDirections;
     String apiKey = "AIzaSyAayHbuSoq5PqhLcUS8j2O6P8iM604gvFE";
+
+    String name ;
+    String address ;
+    Double lat ;
+    Double lng ;
+    String ref ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,29 +90,34 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
             }
         });
         Drawable drawable = rbRating.getProgressDrawable();
-        drawable.setColorFilter(Color.parseColor("#FFD700"), PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(Color.parseColor("#d6a700"), PorterDuff.Mode.SRC_ATOP);
         txtLatitude = (TextView) findViewById(R.id.placeLat);
         txtLongitude = (TextView) findViewById(R.id.placeLng);
         txtCity = (TextView)findViewById(R.id.placeCity);
         txtPhone = (TextView) findViewById(R.id.placePhone);
-        txtStateCountry = (TextView)findViewById(R.id.placeStateCountry);
-        parentLayout = (LinearLayout)findViewById(R.id.parentLayout);
+        txtProvince = (TextView)findViewById(R.id.placeStateCountry);
+        txtGetDirections = (TextView)findViewById(R.id.placeGetDirections);
+        parentLayout = (ScrollView)findViewById(R.id.parentLayout);
+        btnCall = (ImageView)findViewById(R.id.btn_call);
 
-        rbRating.setStepSize(0.1f);
+        rbRating.setStepSize(0.5f);
         imgBack = (ImageView)findViewById(R.id.imgBack);
         imgWebsite = (ImageView)findViewById(R.id.imgWebsite);
         txtBack = (TextView) findViewById(R.id.txtBack);
         txtWebsite = (TextView)findViewById(R.id.txtWebsite);
+
         imgBack.setOnClickListener(this);
         imgWebsite.setOnClickListener(this);
         txtBack.setOnClickListener(this);
         txtWebsite.setOnClickListener(this);
+        txtGetDirections.setOnClickListener(this);
+        btnCall.setOnClickListener(this);
 
-        String name = getIntent().getExtras().getString("strName");
-        String address = getIntent().getExtras().getString("strAddress");
-        Double lat = getIntent().getExtras().getDouble("strLat");
-        Double lng = getIntent().getExtras().getDouble("strLng");
-        String ref = getIntent().getExtras().getString("strRef");
+        name = getIntent().getExtras().getString("strName");
+        address = getIntent().getExtras().getString("strAddress");
+        lat = getIntent().getExtras().getDouble("strLat");
+        lng = getIntent().getExtras().getDouble("strLng");
+        ref = getIntent().getExtras().getString("strRef");
 
 
         url = "https://maps.googleapis.com/maps/api/place/details/json?reference=" + ref + "&key=" + apiKey;
@@ -107,13 +129,13 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
         txtName.setTextColor(Color.parseColor("#000000"));
         String addressArray[] = address.split(" ::: ");
 
-        txtAddress.setText("Address : " + addressArray[0]);
+        txtAddress.append(addressArray[0]);
         txtAddress.setTextColor(Color.parseColor("#000000"));
 
-        txtLatitude.setText("Latitude   : " + lat.toString());
+        txtLatitude.append(lat.toString());
         txtLatitude.setTextColor(Color.parseColor("#000000"));
 
-        txtLongitude.setText("Longitude : " + lng.toString());
+        txtLongitude.append(lng.toString());
         txtLongitude.setTextColor(Color.parseColor("#000000"));
         //txtLongitude.append("\n\n"+url);
 
@@ -147,12 +169,26 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             }
+            case R.id.placeGetDirections:{
+                String uri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + name + ")";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
+                break;
+            }
+            case R.id.btn_call:{
+                if(phone=="" || phone==null){
+                    Toast.makeText(getApplicationContext(),"Phone Number Unavailable",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:"+phone)); startActivity(intent);
+                }
+                break;
+            }
         }
     }
 
     class JsonTask extends AsyncTask<String, String, String> {
 
-        PlaceDetails placeDetails = new PlaceDetails();
         ProgressDialog pd;
 
         protected void onPreExecute() {
@@ -212,13 +248,7 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(String result) {
-            String cityName = "" ;
-            String stateName = "" ;
-            String countryName = "" ;
-            String rating = null ;
-            String phone = "" ;
-            String iconUrl = "" ;
-            String vicinity = "" ;
+
             super.onPostExecute(result);
             if (pd.isShowing()) {
                 pd.dismiss();
@@ -238,6 +268,7 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
                 vicinity = parentJson.getJSONObject("result").getString("vicinity");
                 types = parentJson.getJSONObject("result").getJSONArray("types");
                 website = parentJson.getJSONObject("result").getString("website");
+                getDirections = parentJson.getJSONObject("result").getString("url");
                 Log.i("antalog",addressComponentArray.toString());
                 Log.i("antalog",cityName);
 
@@ -263,24 +294,20 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
                 parentLayout.setBackgroundResource(R.drawable.back);
             }
 
-
-            txtCity.setText("City : "+cityName);
+            txtCity.append(cityName);
             txtCity.setTextColor(Color.parseColor("#000000"));
 
-            txtStateCountry.setText("State/Country : "+stateName+"/"+countryName);
-            txtStateCountry.setTextColor(Color.parseColor("#000000"));
+            txtProvince.append(stateName);
+            txtProvince.setTextColor(Color.parseColor("#000000"));
 
             rating = (rating!=null) ? rating : "0";
             rbRating.setRating(Float.parseFloat(rating));
 
-            txtPhone.setText("Phone Number : "+phone);
+            txtPhone.append(phone);
             txtPhone.setTextColor(Color.parseColor("#000000"));
 
-            txtAddress.setText("Address : "+vicinity);
+            txtAddress.append(vicinity);
             txtAddress.setTextColor(Color.parseColor("#000000"));
-
-            //TODO ListView
-            ListView myList = new ListView(getApplicationContext());
 
             new DownloadImageTask((ImageView) findViewById(R.id.placeImg))
                     .execute(iconUrl);
@@ -308,6 +335,7 @@ public class PlaceDetails extends AppCompatActivity implements View.OnClickListe
         }
 
         protected void onPostExecute(Bitmap result) {
+            bmImage.setImageDrawable(null);
             bmImage.setImageBitmap(result);
         }
     }

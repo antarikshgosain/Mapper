@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Mapper</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Mapper</string>
+    <string name="strAddress"><b>Address : </b></string>
+    <string name="strCity"><b>City Name : </b></string>
+    <string name="strProvince"><b>Province : </b></string>
+    <string name="strLatitude"><b>Latitude : </b></string>
+    <string name="strLongitude"><b>Longitude : </b></string>
+    <string name="strPhone"><b>Phone : </b></string>
+    <string name="strGetDirections"><b>Get Directions</b></string>
 </resources>
